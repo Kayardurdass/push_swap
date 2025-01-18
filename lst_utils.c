@@ -1,57 +1,97 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uanglade <uanglade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: username <uanglade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/16 15:22:21 by uanglade          #+#    #+#             */
-/*   Updated: 2025/01/17 01:21:52 by uanglade         ###   ########.fr       */
+/*   Created: 2025/01/18 17:31:39 by username          #+#    #+#             */
+/*   Updated: 2025/01/18 18:29:54 by username         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
-#include <stdlib.h>
 
-void	free_stack(s_stack *stack)
+s_stack	*get_last(s_stack *stack)
 {
 	s_stack	*current;
 
 	current = stack;
-	while (current->next != stack)
-	{
+	while (current->next != NULL)
 		current = current->next;
-		free(current->prev);
-	}
-	free(current);
+	return (current);
 }
 
-
-s_stack	*get_big(s_stack *stack)
+int	get_stack_size(s_stack *stack)
 {
-	long	most;
-	s_stack	*ret;
+	int		i;
+	s_stack	*current;
+	
+	current = stack;
+	i = 0;
+	while (current != NULL)
+	{
+		current = current->next;
+		i++;
+	}
+	return (i);
+}
+
+void	update_indices(s_stack *stack)
+{
+	int		i;
 	s_stack	*current;
 
 	current = stack;
-	most = LONG_MIN;
-	while (current->next != stack)
+	i = 0;
+	while (current)
 	{
-		if (current->nbr > most)
-		{
-			ret = current;
-			most = ret->nbr;
-		}
+		current->index = i;
+		current = current->next;
+		i++;
+	}
+}
+
+s_stack	*get_at_index(int index, s_stack *stack)
+{
+	int		i;
+	s_stack	*current;
+	
+	current = stack;
+	i = -1;
+	while (++i < index && current)
+	{
 		current = current->next;
 	}
-	return (ret);
+	return (current);
+}
+
+void	remove_op(s_op_lst *ops, s_op_lst *to_remove)
+{
+	s_op_lst	*current;
+	s_op_lst	*tmp;
+
+	if (!ops || !to_remove)
+		return ;
+	if (ops->next_op == NULL)
+	{
+		ops->op = NO_OP;
+		return ;
+	}
+	current = ops;
+	while (current->next_op != to_remove && current != NULL)
+		current = current->next_op;
+	tmp = current->next_op;
+	current->next_op = current->next_op->next_op;
+	free(tmp);
 }
 
 s_op_lst	*get_last_op(s_op_lst *ops)
 {
 	s_op_lst	*current;
 
+	if (!ops)
+		return (ops);
 	current = ops;
 	while (current->next_op != NULL)
 		current = current->next_op;
@@ -63,6 +103,7 @@ void	ad_op(e_op op, s_op_lst *ops)
 	if (ops->op == NO_OP)
 	{
 		ops->op = op;
+		ops->next_op = NULL;
 		return ;
 	}
 	get_last_op(ops)->next_op = (s_op_lst*)malloc(sizeof(s_op_lst));
@@ -101,41 +142,4 @@ void	print_ops(s_op_lst *ops)
 			printf("rrr\n");
 		current = current->next_op;
 	}
-}
-
-s_stack	*get_little(s_stack *stack)
-{
-	long	least;
-	s_stack	*ret;
-	s_stack	*current;
-
-	current = stack;
-	least = LONG_MAX;
-	while (current->next != stack)
-	{
-		if (current->nbr < least)
-		{
-			ret = current;
-			least = ret->nbr;
-		}
-		current = current->next;
-	}
-	return (ret);
-}
-
-int	stack_size(s_stack *stack)
-{
-	s_stack	*current;
-	int		i;
-
-	i = 0;
-	if (!stack)
-		return (i);
-	current = stack;
-	while (current->next != stack)
-	{
-		current = current->next;
-		i++;
-	}
-	return (i + 1);
 }

@@ -6,7 +6,7 @@
 /*   By: uanglade <uanglade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 10:13:00 by uanglade          #+#    #+#             */
-/*   Updated: 2025/01/17 01:23:57 by uanglade         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:39:08 by username         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@
 
 typedef struct t_stack
 {
-	long	nbr;
-	long	index;
-	struct t_stack *prev;
-	struct t_stack *next;
+	long			nbr;
+	long			index;
+	struct t_stack	*next;
 }			s_stack;
 
 typedef enum t_op
@@ -59,7 +58,7 @@ typedef struct t_vars
 
 void	print_ops(s_op_lst *ops);
 s_op_lst	*get_last_op(s_op_lst *ops);
-void	push_to_stack(s_stack **stack_a, s_stack **stack_b);
+s_stack	*get_last(s_stack *stack);
 void	pb(s_vars *vars);
 void	pa(s_vars *vars);
 void	sa(s_vars *vars);
@@ -71,9 +70,13 @@ void	rr(s_vars *vars);
 void	rra(s_vars *vars);
 void	rrb(s_vars *vars);
 void	rrr(s_vars *vars);
-int		stack_size(s_stack *stack);
+int		get_stack_size(s_stack *stack);
 void	free_stack(s_stack *stack);
 void	solve(s_vars *vars);
 void	ad_op(e_op op, s_op_lst *ops);
+void	remove_op(s_op_lst *ops, s_op_lst *to_remove);
+s_stack	*get_at_index(int index, s_stack *stack);
+void	update_indices(s_stack *stack);
+void	do_op(int n, s_vars *vars, void (*f)(s_vars *vars));
 
 #endif // !PUSH_SWAP_H

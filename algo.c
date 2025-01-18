@@ -3,52 +3,83 @@
 /*                                                        :::      ::::::::   */
 /*   algo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uanglade <uanglade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: username <uanglade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/16 19:53:01 by uanglade          #+#    #+#             */
-/*   Updated: 2025/01/17 01:07:34 by uanglade         ###   ########.fr       */
+/*   Created: 2025/01/18 18:35:52 by username          #+#    #+#             */
+/*   Updated: 2025/01/18 18:54:49 by username         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	solve_for_2(s_vars *vars)
+void	get_to_top(s_stack *stack, s_stack *to_move, s_vars *vars, int wich_stack)
 {
-	if (vars->a->nbr > vars->a->next->nbr)
+	int	lst_size;
+
+	if (!stack || !to_move)
+		return ;
+	lst_size = get_stack_size(stack);
+	if (to_move->index < lst_size / 2)
 	{
-		sa(vars);
+		if (wich_stack == 0)
+			do_op(to_move->index, vars, &ra);
+		else
+			do_op(to_move->index, vars, &rb);
+	}
+	else
+	{
+		if (wich_stack == 0)
+			do_op(get_stack_size(stack) - to_move->index, vars, &rra);
+		else
+			do_op(get_stack_size(stack) - to_move->index, vars, &rrb);
 	}
 }
 
-void	solve_for_3(s_vars *vars)
+s_stack	*get_little(s_stack *stack)
 {
-	if (vars->a->nbr > vars->a->next->nbr && vars->a->nbr > vars->a->prev->nbr && vars->a->next->nbr < vars->a->prev->nbr) // 3 1 2
-		ra(vars);
-	else if (vars->a->nbr > vars->a->next->nbr && vars->a->prev->nbr > vars->a->nbr) // 2 1 3
-		sa(vars);
-	else if (vars->a->nbr > vars->a->next->nbr && vars->a->prev->nbr < vars->a->next->nbr) // 321
+	long	least;
+	s_stack	*ret;
+	s_stack	*current;
+
+	current = stack;
+	least = LONG_MAX;
+	while (current)
 	{
-		ra(vars);
-		sa(vars);
+		if (current->nbr < least)
+		{
+			ret = current;
+			least = ret->nbr;
+		}
+		current = current->next;
 	}
-	else if (vars->a->nbr < vars->a->next->nbr && vars->a->prev->nbr < vars->a->next->nbr && vars->a->nbr > vars->a->prev->nbr) // 231 
-		rra(vars);
-	else if (vars->a->nbr < vars->a->next->nbr && vars->a->prev->nbr < vars->a->next->nbr) //132
+	return (ret);
+}
+s_stack	*get_big(s_stack *stack)
+{
+	long	most;
+	s_stack	*ret;
+	s_stack	*current;
+
+	current = stack;
+	most = LONG_MIN;
+	while (current)
 	{
-		rra(vars);
-		sa(vars);
+		if (current->nbr > most)
+		{
+			ret = current;
+			most = ret->nbr;
+		}
+		current = current->next;
 	}
+	return (ret);
 }
 
 void	solve(s_vars *vars)
 {
-	if (stack_size(vars->a) == 2)
-		solve_for_2(vars);
-	else if (stack_size(vars->a) == 3)
-		solve_for_3(vars);
-	else
+	while (get_stack_size(vars->a) > 0)
 	{
-		
+		get_to_top(vars->a, get_little(vars->a), vars, 0);
+		pb(vars);
 	}
-	print_ops(vars->ops);
+	do_op(get_stack_size(vars->b), vars, &pa);
 }
