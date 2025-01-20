@@ -6,7 +6,7 @@
 /*   By: username <uanglade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 17:26:31 by username          #+#    #+#             */
-/*   Updated: 2025/01/18 18:52:48 by username         ###   ########.fr       */
+/*   Updated: 2025/01/20 18:55:28 by uanglade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,5 @@ void	rrr(s_vars *vars)
 void	do_op(int n, s_vars *vars, void (*op)(s_vars *vars))
 {
 	while (--n >= 0)
-	{
 		op(vars);
-	}
 }

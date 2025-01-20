@@ -6,7 +6,7 @@
 /*   By: uanglade <uanglade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 10:19:17 by uanglade          #+#    #+#             */
-/*   Updated: 2025/01/18 18:56:25 by username         ###   ########.fr       */
+/*   Updated: 2025/01/20 18:46:59 by uanglade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,14 @@ int main(int ac, char **av)
 	vars->b = NULL;
 	vars->ops = malloc(sizeof(s_op_lst));
 	vars->ops->op = NO_OP;
-	/*printf("a: \nsize: %d\n", get_stack_size(vars->a));
+	printf("a: \nsize: %d\n", get_stack_size(vars->a));
 	print_stack(vars->a);
 	printf("b: \nsize: %d\n", get_stack_size(vars->b));
-	print_stack(vars->b);*/
+	print_stack(vars->b);
 	solve(vars);
 	print_ops(vars->ops);
-	/*printf("a: \nsize: %d\n", get_stack_size(vars->a));
+	printf("a: \nsize: %d\n", get_stack_size(vars->a));
 	print_stack(vars->a);
 	printf("b: \nsize: %d\n", get_stack_size(vars->b));
-	print_stack(vars->b);*/
+	print_stack(vars->b);
 }
