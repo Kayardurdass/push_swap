@@ -6,7 +6,7 @@
 /*   By: uanglade <uanglade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 10:13:00 by uanglade          #+#    #+#             */
-/*   Updated: 2025/01/22 04:49:44 by uanglade         ###   ########.fr       */
+/*   Updated: 2025/01/22 05:36:33 by uanglade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	get_cost_to_top(s_stack *stack, s_stack *to_move);
 s_stack	*get_best_place(s_stack *stack, s_stack *to_place, int order);
 void	get_to_top(s_stack *stack, s_stack *to_move, s_vars *vars, int wich_stack);
 s_stack	*get_next_nb_to_push(s_vars *vars);
+void	free_ops(s_op_lst *ops);
 void	back_to_a(s_vars *vars);
 void	pb(s_vars *vars);
 void	pa(s_vars *vars);
@@ -84,7 +85,7 @@ void	rrr(s_vars *vars);
 int		get_stack_size(s_stack *stack);
 void	free_stack(s_stack *stack);
 void	solve(s_vars *vars);
-void	ad_op(e_op op, s_op_lst *ops);
+void	ad_op(e_op op, s_op_lst *ops, s_vars *vars);
 void	remove_op(s_op_lst *ops, s_op_lst *to_remove);
 s_stack	*get_at_index(int index, s_stack *stack);
 void	update_indices(s_vars *vars);

@@ -6,7 +6,7 @@
 /*   By: uanglade <uanglade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 03:38:10 by uanglade          #+#    #+#             */
-/*   Updated: 2025/01/22 03:40:26 by uanglade         ###   ########.fr       */
+/*   Updated: 2025/01/22 05:37:30 by uanglade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ra(s_vars *vars)
 	vars->a = vars->a->next;
 	get_last(vars->a)->next = tmp;
 	tmp->next = NULL;
-	ad_op(RA, vars->ops);
+	ad_op(RA, vars->ops, vars);
 	update_indices(vars);
 }
 
@@ -36,7 +36,7 @@ void	rb(s_vars *vars)
 	vars->b = vars->b->next;
 	get_last(vars->b)->next = tmp;
 	tmp->next = NULL;
-	ad_op(RB, vars->ops);
+	ad_op(RB, vars->ops, vars);
 	update_indices(vars);
 }
 
@@ -46,7 +46,7 @@ void	rr(s_vars *vars)
 	rb(vars);
 	remove_op(vars->ops, get_last_op(vars->ops));
 	remove_op(vars->ops, get_last_op(vars->ops));
-	ad_op(RR, vars->ops);
+	ad_op(RR, vars->ops, vars);
 	update_indices(vars);
 }
 
@@ -60,6 +60,6 @@ void	rra(s_vars *vars)
 	get_at_index(get_stack_size(vars->a) - 2, vars->a)->next = NULL;
 	tmp->next = vars->a;
 	vars->a = tmp;
-	ad_op(RRA, vars->ops);
+	ad_op(RRA, vars->ops, vars);
 	update_indices(vars);
 }

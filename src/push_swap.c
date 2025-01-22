@@ -6,7 +6,7 @@
 /*   By: uanglade <uanglade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 10:19:17 by uanglade          #+#    #+#             */
-/*   Updated: 2025/01/22 03:29:58 by uanglade         ###   ########.fr       */
+/*   Updated: 2025/01/22 05:40:54 by uanglade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,22 @@ int	main(int ac, char **av)
 	s_vars	*vars;
 
 	if (ac < 2 || !check_args(ac, av))
-		return (-1);
+		return (write(1, "Error\n", 6));
 	vars = (s_vars *)malloc(sizeof(s_vars));
+	if (!vars)
+		return (-1);
 	vars->a = parse_args(ac, av);
 	if (!vars->a)
 		return (free(vars), -1);
 	vars->b = NULL;
 	vars->ops = malloc(sizeof(s_op_lst));
+	if (!vars->ops)
+		return (free_stack(vars->a), free(vars), -1);
 	vars->ops->op = NO_OP;
 	solve(vars);
 	optimize_ops(vars);
 	print_ops(vars->ops);
+	free_stack(vars->a);
+	free_stack(vars->b);
+	free(vars);
 }

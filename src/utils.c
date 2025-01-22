@@ -6,7 +6,7 @@
 /*   By: uanglade <uanglade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 03:41:09 by uanglade          #+#    #+#             */
-/*   Updated: 2025/01/22 03:59:27 by uanglade         ###   ########.fr       */
+/*   Updated: 2025/01/22 05:36:12 by uanglade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,25 @@ s_op_lst	*get_last_op(s_op_lst *ops)
 	return (current);
 }
 
-void	ad_op(e_op op, s_op_lst *ops)
+void	ad_op(e_op op, s_op_lst *ops, s_vars *vars)
 {
+	s_op_lst	*tmp;
+
 	if (ops->op == NO_OP)
 	{
 		ops->op = op;
 		ops->next_op = NULL;
 		return ;
 	}
+	tmp = get_last_op(ops);
 	get_last_op(ops)->next_op = (s_op_lst *)malloc(sizeof(s_op_lst));
+	if (!tmp->next_op)
+	{
+		free_ops(ops);
+		free_stack(vars->a);
+		free_stack(vars->b);
+		exit(-1);
+	}
 	get_last_op(ops)->next_op = NULL;
 	get_last_op(ops)->op = op;
 }
@@ -86,11 +96,14 @@ void	print_ops2(e_op op)
 void	print_ops(s_op_lst *ops)
 {
 	s_op_lst	*current;
+	s_op_lst	*tmp;
 
 	current = ops;
 	while (current != NULL)
 	{
+		tmp = current;
 		print_ops2(current->op);
 		current = current->next_op;
+		free(tmp);
 	}
 }

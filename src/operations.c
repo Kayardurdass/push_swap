@@ -6,7 +6,7 @@
 /*   By: username <uanglade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 17:26:31 by username          #+#    #+#             */
-/*   Updated: 2025/01/22 03:40:34 by uanglade         ###   ########.fr       */
+/*   Updated: 2025/01/22 05:37:08 by uanglade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	pb(s_vars *vars)
 		tmp->next = vars->b;
 		vars->b = tmp;
 	}
-	return (ad_op(PB, vars->ops), update_indices(vars));
+	return (ad_op(PB, vars->ops, vars), update_indices(vars));
 }
 
 void	pa(s_vars *vars)
@@ -65,7 +65,7 @@ void	pa(s_vars *vars)
 		tmp->next = vars->a;
 		vars->a = tmp;
 	}
-	return (ad_op(PA, vars->ops), update_indices(vars));
+	return (ad_op(PA, vars->ops, vars), update_indices(vars));
 }
 
 void	sa(s_vars *vars)
@@ -78,7 +78,7 @@ void	sa(s_vars *vars)
 	vars->a = vars->a->next;
 	tmp->next = vars->a->next;
 	vars->a->next = tmp;
-	ad_op(SA, vars->ops);
+	ad_op(SA, vars->ops, vars);
 	update_indices(vars);
 }
 
@@ -92,7 +92,7 @@ void	sb(s_vars *vars)
 	vars->b = vars->b->next;
 	tmp->next = vars->b->next;
 	vars->b->next = tmp;
-	ad_op(SB, vars->ops);
+	ad_op(SB, vars->ops, vars);
 	update_indices(vars);
 }
 
@@ -102,6 +102,6 @@ void	ss(s_vars *vars)
 	sb(vars);
 	remove_op(vars->ops, get_last_op(vars->ops));
 	remove_op(vars->ops, get_last_op(vars->ops));
-	ad_op(SS, vars->ops);
+	ad_op(SS, vars->ops, vars);
 	update_indices(vars);
 }

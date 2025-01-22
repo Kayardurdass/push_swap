@@ -6,7 +6,7 @@
 /*   By: uanglade <uanglade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 03:39:07 by uanglade          #+#    #+#             */
-/*   Updated: 2025/01/22 03:39:54 by uanglade         ###   ########.fr       */
+/*   Updated: 2025/01/22 05:37:40 by uanglade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	rrb(s_vars *vars)
 	get_at_index(get_stack_size(vars->b) - 2, vars->b)->next = NULL;
 	tmp->next = vars->b;
 	vars->b = tmp;
-	ad_op(RRB, vars->ops);
+	ad_op(RRB, vars->ops, vars);
 	update_indices(vars);
 }
 
@@ -32,7 +32,7 @@ void	rrr(s_vars *vars)
 	rrb(vars);
 	remove_op(vars->ops, get_last_op(vars->ops));
 	remove_op(vars->ops, get_last_op(vars->ops));
-	ad_op(RRR, vars->ops);
+	ad_op(RRR, vars->ops, vars);
 	update_indices(vars);
 }
 
