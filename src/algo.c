@@ -12,7 +12,7 @@
 
 #include "../include/push_swap.h"
 
-void	solve_3(s_vars *vars)
+void	solve_3(t_vars *vars)
 {
 	long	first;
 	long	second;
@@ -41,13 +41,13 @@ void	solve_3(s_vars *vars)
 	}
 }
 
-void	solve_2(s_vars *vars)
+void	solve_2(t_vars *vars)
 {
 	if (vars->a->nbr > vars->a->next->nbr)
 		sa(vars);
 }
 
-void	solve_5(s_vars *vars)
+void	solve_5(t_vars *vars)
 {
 	get_to_top(vars->a, get_big(vars->a), vars, 0);
 	pb(vars);
@@ -59,7 +59,7 @@ void	solve_5(s_vars *vars)
 	ra(vars);
 }
 
-int	solve2(s_vars *vars)
+int	solve2(t_vars *vars)
 {
 	if (get_stack_size(vars->a) == 1 || is_sorted(vars))
 		return (0);
@@ -74,7 +74,7 @@ int	solve2(s_vars *vars)
 	return (0);
 }
 
-void	solve(s_vars *vars)
+void	solve(t_vars *vars)
 {
 	if (solve2(vars))
 	{

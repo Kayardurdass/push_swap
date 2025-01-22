@@ -12,10 +12,10 @@
 
 #include "../include/push_swap.h"
 
-void	remove_op(s_op_lst *ops, s_op_lst *to_remove)
+void	remove_op(t_op_lst *ops, t_op_lst *to_remove)
 {
-	s_op_lst	*current;
-	s_op_lst	*tmp;
+	t_op_lst	*current;
+	t_op_lst	*tmp;
 
 	if (!ops || !to_remove)
 		return ;
@@ -32,9 +32,9 @@ void	remove_op(s_op_lst *ops, s_op_lst *to_remove)
 	free(tmp);
 }
 
-s_op_lst	*get_last_op(s_op_lst *ops)
+t_op_lst	*get_last_op(t_op_lst *ops)
 {
-	s_op_lst	*current;
+	t_op_lst	*current;
 
 	if (!ops)
 		return (ops);
@@ -44,9 +44,9 @@ s_op_lst	*get_last_op(s_op_lst *ops)
 	return (current);
 }
 
-void	ad_op(e_op op, s_op_lst *ops, s_vars *vars)
+void	ad_op(t_op op, t_op_lst *ops, t_vars *vars)
 {
-	s_op_lst	*tmp;
+	t_op_lst	*tmp;
 
 	if (ops->op == NO_OP)
 	{
@@ -55,7 +55,7 @@ void	ad_op(e_op op, s_op_lst *ops, s_vars *vars)
 		return ;
 	}
 	tmp = get_last_op(ops);
-	get_last_op(ops)->next_op = (s_op_lst *)malloc(sizeof(s_op_lst));
+	get_last_op(ops)->next_op = (t_op_lst *)malloc(sizeof(t_op_lst));
 	if (!tmp->next_op)
 	{
 		free_ops(ops);
@@ -67,7 +67,7 @@ void	ad_op(e_op op, s_op_lst *ops, s_vars *vars)
 	get_last_op(ops)->op = op;
 }
 
-void	print_ops2(e_op op)
+void	print_ops2(t_op op)
 {
 	if (op == SA)
 		printf("sa\n");
@@ -93,10 +93,10 @@ void	print_ops2(e_op op)
 		printf("rrr\n");
 }
 
-void	print_ops(s_op_lst *ops)
+void	print_ops(t_op_lst *ops)
 {
-	s_op_lst	*current;
-	s_op_lst	*tmp;
+	t_op_lst	*current;
+	t_op_lst	*tmp;
 
 	current = ops;
 	while (current != NULL)

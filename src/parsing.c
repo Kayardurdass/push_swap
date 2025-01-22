@@ -29,14 +29,14 @@ int	check_args(int ac, char **av)
 	return (1);
 }
 
-s_stack	*parse_list_1(int ac, char **av)
+t_stack	*parse_list_1(int ac, char **av)
 {
 	int		i;
-	s_stack	*ret;
-	s_stack	*current;
+	t_stack	*ret;
+	t_stack	*current;
 
 	i = 0;
-	ret = (s_stack *)malloc(sizeof(s_stack));
+	ret = (t_stack *)malloc(sizeof(t_stack));
 	if (!ret)
 		return (ret);
 	current = ret;
@@ -46,7 +46,7 @@ s_stack	*parse_list_1(int ac, char **av)
 		current->index = i - 1;
 		if (i < ac - 1)
 		{
-			current->next = (s_stack *)malloc(sizeof(s_stack));
+			current->next = (t_stack *)malloc(sizeof(t_stack));
 			if (!current->next)
 				return (NULL);
 			current = current->next;
@@ -57,14 +57,14 @@ s_stack	*parse_list_1(int ac, char **av)
 	return (ret);
 }
 
-s_stack	*parse_list_2(char **av)
+t_stack	*parse_list_2(char **av)
 {
 	int		i;
-	s_stack	*ret;
-	s_stack	*current;
+	t_stack	*ret;
+	t_stack	*current;
 
 	i = -1;
-	ret = (s_stack *)malloc(sizeof(s_stack));
+	ret = (t_stack *)malloc(sizeof(t_stack));
 	if (!ret)
 		return (NULL);
 	current = ret;
@@ -74,7 +74,7 @@ s_stack	*parse_list_2(char **av)
 		current->index = i;
 		if (av[i + 1])
 		{
-			current->next = (s_stack *)malloc(sizeof(s_stack));
+			current->next = (t_stack *)malloc(sizeof(t_stack));
 			if (!current->next)
 				return (free_stack(ret), free_strs(av), NULL);
 			current = current->next;
@@ -85,7 +85,7 @@ s_stack	*parse_list_2(char **av)
 	return (free_strs(av), ret);
 }
 
-s_stack	*parse_args(int ac, char **av)
+t_stack	*parse_args(int ac, char **av)
 {
 	if (ac == 2)
 	{

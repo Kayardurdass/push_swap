@@ -12,10 +12,10 @@
 
 #include "../include/push_swap.h"
 
-void	free_ops(s_op_lst *ops)
+void	free_ops(t_op_lst *ops)
 {
-	s_op_lst	*current;
-	s_op_lst	*tmp;
+	t_op_lst	*current;
+	t_op_lst	*tmp;
 
 	current = ops;
 	while (current)

@@ -12,7 +12,7 @@
 
 #include "../include/push_swap.h"
 
-void	get_to_top(s_stack *stack, s_stack *to_move, s_vars *vars,
+void	get_to_top(t_stack *stack, t_stack *to_move, t_vars *vars,
 		int wich_stack)
 {
 	int	lst_size;
@@ -36,7 +36,7 @@ void	get_to_top(s_stack *stack, s_stack *to_move, s_vars *vars,
 	}
 }
 
-int	get_cost_to_top(s_stack *stack, s_stack *to_move)
+int	get_cost_to_top(t_stack *stack, t_stack *to_move)
 {
 	int	lst_size;
 
@@ -49,11 +49,11 @@ int	get_cost_to_top(s_stack *stack, s_stack *to_move)
 		return (lst_size - to_move->index);
 }
 
-s_stack	*get_little(s_stack *stack)
+t_stack	*get_little(t_stack *stack)
 {
 	long	least;
-	s_stack	*ret;
-	s_stack	*current;
+	t_stack	*ret;
+	t_stack	*current;
 
 	current = stack;
 	least = LONG_MAX;
@@ -69,11 +69,11 @@ s_stack	*get_little(s_stack *stack)
 	return (ret);
 }
 
-s_stack	*get_big(s_stack *stack)
+t_stack	*get_big(t_stack *stack)
 {
 	long	most;
-	s_stack	*ret;
-	s_stack	*current;
+	t_stack	*ret;
+	t_stack	*current;
 
 	current = stack;
 	most = LONG_MIN;
@@ -89,10 +89,10 @@ s_stack	*get_big(s_stack *stack)
 	return (ret);
 }
 
-s_stack	*get_best_place(s_stack *stack, s_stack *to_place, int order)
+t_stack	*get_best_place(t_stack *stack, t_stack *to_place, int order)
 {
-	s_stack	*current;
-	s_stack	*ret;
+	t_stack	*current;
+	t_stack	*ret;
 	int		closest_fit;
 
 	closest_fit = INT_MAX;

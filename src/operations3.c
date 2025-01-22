@@ -12,9 +12,9 @@
 
 #include "../include/push_swap.h"
 
-void	rrb(s_vars *vars)
+void	rrb(t_vars *vars)
 {
-	s_stack	*tmp;
+	t_stack	*tmp;
 
 	if (!vars->b || get_stack_size(vars->b) == 1)
 		return ;
@@ -26,7 +26,7 @@ void	rrb(s_vars *vars)
 	update_indices(vars);
 }
 
-void	rrr(s_vars *vars)
+void	rrr(t_vars *vars)
 {
 	rra(vars);
 	rrb(vars);
@@ -36,7 +36,7 @@ void	rrr(s_vars *vars)
 	update_indices(vars);
 }
 
-void	do_op(int n, s_vars *vars, void (*op)(s_vars *vars))
+void	do_op(int n, t_vars *vars, void (*op)(t_vars *vars))
 {
 	while (--n >= 0)
 		op(vars);

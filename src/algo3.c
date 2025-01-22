@@ -12,8 +12,8 @@
 
 #include "../include/push_swap.h"
 
-int	get_next_nb_to_push2(s_vars *vars, s_stack *current, int *least_cost,
-		s_stack **ret)
+int	get_next_nb_to_push2(t_vars *vars, t_stack *current, int *least_cost,
+		t_stack **ret)
 {
 	if (current->nbr > get_big(vars->b)->nbr)
 	{
@@ -40,10 +40,10 @@ int	get_next_nb_to_push2(s_vars *vars, s_stack *current, int *least_cost,
 	return (0);
 }
 
-s_stack	*get_next_nb_to_push(s_vars *vars)
+t_stack	*get_next_nb_to_push(t_vars *vars)
 {
-	s_stack	*current;
-	s_stack	*ret;
+	t_stack	*current;
+	t_stack	*ret;
 	int		cost_to_top;
 	int		total_cost;
 	int		least_cost;
@@ -68,15 +68,15 @@ s_stack	*get_next_nb_to_push(s_vars *vars)
 	return (ret);
 }
 
-void	back_to_a(s_vars *vars)
+void	back_to_a(t_vars *vars)
 {
 	get_to_top(vars->b, get_big(vars->b), vars, 1);
 	do_op(get_stack_size(vars->b), vars, &pa);
 }
 
-int	is_sorted(s_vars *vars)
+int	is_sorted(t_vars *vars)
 {
-	s_stack	*current;
+	t_stack	*current;
 
 	current = vars->a;
 	while (current)

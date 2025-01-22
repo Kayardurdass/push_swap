@@ -12,9 +12,9 @@
 
 #include "../include/push_swap.h"
 
-s_stack	*get_last(s_stack *stack)
+t_stack	*get_last(t_stack *stack)
 {
-	s_stack	*current;
+	t_stack	*current;
 
 	current = stack;
 	while (current->next != NULL)
@@ -22,10 +22,10 @@ s_stack	*get_last(s_stack *stack)
 	return (current);
 }
 
-int	get_stack_size(s_stack *stack)
+int	get_stack_size(t_stack *stack)
 {
 	int		i;
-	s_stack	*current;
+	t_stack	*current;
 
 	current = stack;
 	i = 0;
@@ -37,10 +37,10 @@ int	get_stack_size(s_stack *stack)
 	return (i);
 }
 
-void	update_stack_indices(s_stack *stack)
+void	update_stack_indices(t_stack *stack)
 {
 	int		i;
-	s_stack	*current;
+	t_stack	*current;
 
 	current = stack;
 	i = 0;
@@ -52,16 +52,16 @@ void	update_stack_indices(s_stack *stack)
 	}
 }
 
-void	update_indices(s_vars *vars)
+void	update_indices(t_vars *vars)
 {
 	update_stack_indices(vars->a);
 	update_stack_indices(vars->b);
 }
 
-s_stack	*get_at_index(int index, s_stack *stack)
+t_stack	*get_at_index(int index, t_stack *stack)
 {
 	int		i;
-	s_stack	*current;
+	t_stack	*current;
 
 	current = stack;
 	i = -1;

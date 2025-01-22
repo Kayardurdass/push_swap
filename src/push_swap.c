@@ -22,10 +22,10 @@ void	free_strs(char **strs)
 	free(strs);
 }
 
-void	free_stack(s_stack *stack)
+void	free_stack(t_stack *stack)
 {
-	s_stack	*current;
-	s_stack	*tmp;
+	t_stack	*current;
+	t_stack	*tmp;
 
 	current = stack;
 	while (current)
@@ -37,9 +37,9 @@ void	free_stack(s_stack *stack)
 	free(current);
 }
 
-void	print_stack(s_stack *stack)
+void	print_stack(t_stack *stack)
 {
-	s_stack	*current;
+	t_stack	*current;
 
 	if (!stack)
 	{
@@ -54,10 +54,10 @@ void	print_stack(s_stack *stack)
 	}
 }
 
-void	optimize_ops(s_vars *vars)
+void	optimize_ops(t_vars *vars)
 {
-	s_op_lst	*current;
-	s_op_lst	*tmp;
+	t_op_lst	*current;
+	t_op_lst	*tmp;
 
 	current = vars->ops;
 	while (current)
@@ -85,18 +85,18 @@ void	optimize_ops(s_vars *vars)
 
 int	main(int ac, char **av)
 {
-	s_vars	*vars;
+	t_vars	*vars;
 
 	if (ac < 2 || !check_args(ac, av))
 		return (write(1, "Error\n", 6));
-	vars = (s_vars *)malloc(sizeof(s_vars));
+	vars = (t_vars *)malloc(sizeof(t_vars));
 	if (!vars)
 		return (-1);
 	vars->a = parse_args(ac, av);
 	if (!vars->a)
 		return (free(vars), -1);
 	vars->b = NULL;
-	vars->ops = malloc(sizeof(s_op_lst));
+	vars->ops = malloc(sizeof(t_op_lst));
 	if (!vars->ops)
 		return (free_stack(vars->a), free(vars), -1);
 	vars->ops->op = NO_OP;
