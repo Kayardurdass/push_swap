@@ -61,7 +61,7 @@ void	solve_5(s_vars *vars)
 
 int	solve2(s_vars *vars)
 {
-	if (get_stack_size(vars->a) == 1)
+	if (get_stack_size(vars->a) == 1 || is_sorted(vars))
 		return (0);
 	if (get_stack_size(vars->a) == 2)
 		solve_2(vars);

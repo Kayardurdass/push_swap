@@ -87,6 +87,7 @@ void	free_stack(s_stack *stack);
 void	solve(s_vars *vars);
 void	ad_op(e_op op, s_op_lst *ops, s_vars *vars);
 void	remove_op(s_op_lst *ops, s_op_lst *to_remove);
+int	is_sorted(s_vars *vars);
 s_stack	*get_at_index(int index, s_stack *stack);
 void	update_indices(s_vars *vars);
 void	do_op(int n, s_vars *vars, void (*f)(s_vars *vars));

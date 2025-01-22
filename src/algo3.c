@@ -73,3 +73,20 @@ void	back_to_a(s_vars *vars)
 	get_to_top(vars->b, get_big(vars->b), vars, 1);
 	do_op(get_stack_size(vars->b), vars, &pa);
 }
+
+int	is_sorted(s_vars *vars)
+{
+	s_stack	*current;
+
+	current = vars->a;
+	while (current)
+	{
+		if (current->next)
+		{
+			if (current->nbr > current->next->nbr)
+				return (0);
+		}
+		current = current->next;
+	}
+	return (1);
+}

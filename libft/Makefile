@@ -57,21 +57,21 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
 .c.o:
-	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+	@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 ${NAME}: ${OBJS}
-	ar -rsc ${NAME} ${OBJS}
+	@ar -rsc ${NAME} ${OBJS}
 
 all: 	${NAME}
 
 bonus:	${OBJSALL}
-	ar -rsc ${NAME} ${OBJSALL}
+	@ar -rsc ${NAME} ${OBJSALL}
 
 clean:	
-		rm -f ${OBJS}
+	@rm -f ${OBJS}
 
 fclean:	clean
-		rm -f ${NAME}
+	@rm -f ${NAME}
 
 re:	fclean ${NAME}
 

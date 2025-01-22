@@ -9,27 +9,37 @@ LIBFT_DIR = ./libft
 INCLUDE = -I./include -I./libft
 LINKER = -L$(LIBFT_DIR) -lft
 
+YELLOW = \033[33m
+GREEN = \033[32m
+CYAN = \033[36m
+RESET = \033[0m
+
 all: $(LIBFT) $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LINKER) -o $(NAME)
-
 $(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR)
+	@echo "$(YELLOW)Building libft...$(RESET)"
+	@make -C $(LIBFT_DIR)
+	@echo "$(GREEN)Build successful!$(RESET)"
+
+$(NAME): $(OBJS)
+	@echo "$(YELLOW)Building push_swap...$(RESET)"
+	@$(CC) $(CFLAGS) $(OBJS) $(LINKER) -o $(NAME)
+	@echo "$(GREEN)Build successful!$(RESET)"
 
 $(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)
 
 $(OBJDIR)/%.o: ./src/%.c | $(OBJDIR)
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
-	$(MAKE) clean -C $(LIBFT_DIR)
+	@echo "$(GREEN)Cleaning up...$(RESET)"
+	@rm -f $(OBJS)
+	@$(MAKE) clean -C $(LIBFT_DIR)
 
 fclean: clean
-	rm -f $(NAME)
-	$(MAKE) fclean -C $(LIBFT_DIR)
+	@rm -f $(NAME)
+	@make fclean -C $(LIBFT_DIR)
 
 re: fclean all
 
