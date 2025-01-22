@@ -6,59 +6,38 @@
 /*   By: uanglade <uanglade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 10:19:17 by uanglade          #+#    #+#             */
-/*   Updated: 2025/01/20 18:46:59 by uanglade         ###   ########.fr       */
+/*   Updated: 2025/01/22 03:29:58 by uanglade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-#include "libft/libft.h"
-#include <stdlib.h>
+#include "../include/push_swap.h"
 
-int	check_args(int ac, char **av)
+void	free_strs(char **strs)
 {
-	int i;
-	int j;
+	int	i;
 
-	i = 0;
-	while (++i < ac)
-	{
-		j = 0;
-		while (++j < ac)
-		{
-			if (ft_atoi(av[i]) == ft_atoi(av[j]) && i != j)
-				return (0);
-		}
-	}
-	return (1);
+	i = -1;
+	while (strs[++i])
+		free(strs[i]);
+	free(strs);
 }
 
-s_stack *parse_list(int ac, char **av)
+void	free_stack(s_stack *stack)
 {
-	int		i;
-	s_stack	*ret;
 	s_stack	*current;
+	s_stack	*tmp;
 
-	i = 0;
-	ret = (s_stack*)malloc(sizeof(s_stack));
-	current = ret;
-	while (++i < ac)
+	current = stack;
+	while (current)
 	{
-		current->nbr = ft_atoi(av[i]);
-		current->index = i - 1;
-		if (i < ac - 1)
-		{
-			current->next = (s_stack*)malloc(sizeof(s_stack));
-			current = current->next;
-		}
-		else
-		{
-			current->next = NULL;
-		}
+		tmp = current;
+		current = current->next;
+		free(tmp);
 	}
-	return (ret);
+	free(current);
 }
 
-void print_stack(s_stack *stack)
+void	print_stack(s_stack *stack)
 {
 	s_stack	*current;
 
@@ -75,24 +54,49 @@ void print_stack(s_stack *stack)
 	}
 }
 
-int main(int ac, char **av)
+void	optimize_ops(s_vars *vars)
 {
-	s_vars *vars;
-	if (ac <= 2 || !check_args(ac, av))
+	s_op_lst	*current;
+	s_op_lst	*tmp;
+
+	current = vars->ops;
+	while (current)
+	{
+		if (current->next_op)
+		{
+			if (current->op == RA && current->next_op->op == RB)
+			{
+				tmp = current->next_op->next_op;
+				free(current->next_op);
+				current->op = RR;
+				current->next_op = tmp;
+			}
+			if (current->op == RRA && current->next_op->op == RRB)
+			{
+				tmp = current->next_op->next_op;
+				free(current->next_op);
+				current->op = RRR;
+				current->next_op = tmp;
+			}
+		}
+		current = current->next_op;
+	}
+}
+
+int	main(int ac, char **av)
+{
+	s_vars	*vars;
+
+	if (ac < 2 || !check_args(ac, av))
 		return (-1);
-	vars = (s_vars*)malloc(sizeof(s_vars));
-	vars->a = parse_list(ac, av);
+	vars = (s_vars *)malloc(sizeof(s_vars));
+	vars->a = parse_args(ac, av);
+	if (!vars->a)
+		return (free(vars), -1);
 	vars->b = NULL;
 	vars->ops = malloc(sizeof(s_op_lst));
 	vars->ops->op = NO_OP;
-	printf("a: \nsize: %d\n", get_stack_size(vars->a));
-	print_stack(vars->a);
-	printf("b: \nsize: %d\n", get_stack_size(vars->b));
-	print_stack(vars->b);
 	solve(vars);
+	optimize_ops(vars);
 	print_ops(vars->ops);
-	printf("a: \nsize: %d\n", get_stack_size(vars->a));
-	print_stack(vars->a);
-	printf("b: \nsize: %d\n", get_stack_size(vars->b));
-	print_stack(vars->b);
 }

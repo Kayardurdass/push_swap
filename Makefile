@@ -1,35 +1,46 @@
-SRCS = 
-SRC_BONUS = 
-OBJS = ${SRCS:.c=.o}
 
-SRCSALL = ${SRCS} ${SRC_BONUS}
-
-OBJSALL = ${SRCSALL:.c=.o}
-
-LIB = libft.a
-
+# Variables
+SRCS := $(wildcard ./src/*.c)
+OBJDIR = obj
+OBJS = ${SRCS:./src/%.c=./$(OBJDIR)/%.o}
+NAME = push_swap
 CC = gcc
+CFLAGS = -Wall -Werror -Wextra -g3
+LIBFT = ./libft/libft.a
+LIBFT_DIR = ./libft
+INCLUDE = -I./include -I./libft
+LINKER = -L$(LIBFT_DIR) -lft
 
-CFLAGS = -Wall -Werror -Wextra -I ./
+# Rules
+all: $(LIBFT) $(NAME)
 
-.c.o:
-	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+# Build the main executable
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LINKER) -o $(NAME)
 
-${LIB}:	${OBJS}
-	ar -rsc ${LIB} ${OBJS}
+# Build libft if not already built
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
 
-all: 	${LIB}
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+# Compile object files from source files
+$(OBJDIR)/%.o: ./src/%.c | $(OBJDIR)
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+# Bonus target (optional)
+bonus: all
 
-bonus:	${OBJSALL}
-	ar -rsc ${LIB} ${OBJSALL}
-	
+# Cleaning rules
+clean:
+	rm -f $(OBJS)
+	$(MAKE) clean -C $(LIBFT_DIR)
 
-clean:	
-		rm -f ${OBJS}
+fclean: clean
+	rm -f $(NAME)
+	$(MAKE) fclean -C $(LIBFT_DIR)
 
-fclean:	clean;
-		rm -f ${LIB}
+re: fclean all
 
-re:	fclean all
-
+# Phony targets
 .PHONY: all clean fclean re bonus
+

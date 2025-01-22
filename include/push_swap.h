@@ -6,7 +6,7 @@
 /*   By: uanglade <uanglade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 10:13:00 by uanglade          #+#    #+#             */
-/*   Updated: 2025/01/20 18:53:34 by uanglade         ###   ########.fr       */
+/*   Updated: 2025/01/22 04:49:44 by uanglade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 
 
 typedef struct t_stack
@@ -56,9 +56,20 @@ typedef struct t_vars
 	s_op_lst	*ops;
 }	s_vars;
 
+void	free_strs(char **strs);
+void	free_stack(s_stack *stack);
+int	check_args(int ac, char **av);
+s_stack	*parse_args(int ac, char **av);
 void	print_ops(s_op_lst *ops);
 s_op_lst	*get_last_op(s_op_lst *ops);
 s_stack	*get_last(s_stack *stack);
+s_stack	*get_big(s_stack *stack);
+s_stack	*get_little(s_stack *stack);
+int	get_cost_to_top(s_stack *stack, s_stack *to_move);
+s_stack	*get_best_place(s_stack *stack, s_stack *to_place, int order);
+void	get_to_top(s_stack *stack, s_stack *to_move, s_vars *vars, int wich_stack);
+s_stack	*get_next_nb_to_push(s_vars *vars);
+void	back_to_a(s_vars *vars);
 void	pb(s_vars *vars);
 void	pa(s_vars *vars);
 void	sa(s_vars *vars);
@@ -76,7 +87,7 @@ void	solve(s_vars *vars);
 void	ad_op(e_op op, s_op_lst *ops);
 void	remove_op(s_op_lst *ops, s_op_lst *to_remove);
 s_stack	*get_at_index(int index, s_stack *stack);
-void	update_indices(s_stack *stack);
+void	update_indices(s_vars *vars);
 void	do_op(int n, s_vars *vars, void (*f)(s_vars *vars));
 
 #endif // !PUSH_SWAP_H
