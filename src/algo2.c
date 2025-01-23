@@ -99,13 +99,13 @@ t_stack	*get_best_place(t_stack *stack, t_stack *to_place, int order)
 	current = stack;
 	while (current != NULL)
 	{
-		if ((abs((int)(to_place->nbr - current->nbr)) < closest_fit
-			&& to_place->nbr > current->nbr && !order)
-			|| (abs((int)(to_place->nbr - current->nbr)) < closest_fit
+		if ((labs((to_place->nbr - current->nbr)) < closest_fit
+				&& to_place->nbr > current->nbr && !order)
+			|| (labs((to_place->nbr - current->nbr)) < closest_fit
 				&& to_place->nbr < current->nbr && order))
 		{
 			ret = current;
-			closest_fit = abs((int)(to_place->nbr - current->nbr));
+			closest_fit = labs((to_place->nbr - current->nbr));
 		}
 		current = current->next;
 	}

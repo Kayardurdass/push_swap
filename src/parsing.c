@@ -11,6 +11,34 @@
 /* ************************************************************************** */
 #include "../include/push_swap.h"
 
+int	check_args2(int ac, char **av)
+{
+	int		i;
+	int		j;
+	char	**split;
+
+	if (ac != 2)
+		return (1);
+	split = ft_split(av[1], ' ');
+	i = -1;
+	while (split[++i])
+	{
+		j = -1;
+		while (split[++j])
+		{
+			if (ft_atoi(split[i]) == ft_atoi(split[j]) && i != j)
+				return (0);
+		}
+		j = -1;
+		while (split[i][++j])
+		{
+			if (!ft_isdigit(split[i][j]) && split[i][j] != '-')
+				return (0);
+		}
+	}
+	return (1);
+}
+
 int	check_args(int ac, char **av)
 {
 	int	i;
@@ -23,6 +51,12 @@ int	check_args(int ac, char **av)
 		while (++j < ac)
 		{
 			if (ft_atoi(av[i]) == ft_atoi(av[j]) && i != j)
+				return (0);
+		}
+		j = -1;
+		while (av[i][++j])
+		{
+			if (!ft_isdigit(av[i][j]) && av[i][j] != '-' && av[i][j] != ' ')
 				return (0);
 		}
 	}

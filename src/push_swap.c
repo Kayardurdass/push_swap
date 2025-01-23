@@ -87,7 +87,9 @@ int	main(int ac, char **av)
 {
 	t_vars	*vars;
 
-	if (ac < 2 || !check_args(ac, av))
+	if (ac == 1)
+		return (1);
+	if (ac < 2 || !check_args(ac, av) || !check_args2(ac, av))
 		return (write(1, "Error\n", 6));
 	vars = (t_vars *)malloc(sizeof(t_vars));
 	if (!vars)

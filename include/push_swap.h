@@ -58,6 +58,7 @@ typedef struct t_vars
 void		free_strs(char **strs);
 void		free_stack(t_stack *stack);
 int			check_args(int ac, char **av);
+int			check_args2(int ac, char **av);
 t_stack		*parse_args(int ac, char **av);
 void		print_ops(t_op_lst *ops);
 t_op_lst	*get_last_op(t_op_lst *ops);
